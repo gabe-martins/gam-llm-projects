@@ -32,5 +32,5 @@ for query in list(df["Query SQL"].values):
   print(query)
   description += [chain.invoke(query)]
 
-df["Descrição"] = description
+df["Tabelas Usadas"] = description
 df.to_csv(BASE_DB_PATH + 'processed_queries.csv', index=False, header=True, sep=',')

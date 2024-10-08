@@ -1,5 +1,6 @@
-ID,Query SQL,Descrição
-1,SELECT * FROM clientes;,"Consulta SQL que recupera todos os campos e registros da tabela ""clientes""."
-2,"SELECT MONTH(data_venda), SUM(valor) FROM vendas GROUP BY MONTH(data_venda);",Seleciona o mês das vendas e soma o valor total das vendas para cada mês.
-3,SELECT COUNT(*) FROM produtos_vendidos WHERE data_venda = '2024-01-01';,"Essa linha de código SQL seleciona o número total de registros na tabela ""produtos_vendidos"" onde a data de venda é igual a 01/01/2024."
-4,"SELECT categoria, AVG(preco) FROM produtos GROUP BY categoria;",Esta query SQL seleciona a categoria de produtos e calcula a média de preços para cada categoria.
+ID,Query SQL,Tabelas Usadas
+1,SELECT * FROM clientes;,clientes
+2,"SELECT MONTH(data_venda), SUM(valor) FROM vendas GROUP BY MONTH(data_venda);",vendas
+3,SELECT COUNT(*) FROM produtos_vendidos WHERE data_venda = '2024-01-01';,produtos_vendidos
+4,"SELECT categoria, AVG(preco) FROM produtos GROUP BY categoria;",produtos
+5,"SELECT A.*, B.PRICE FROM produtos A inner join vendas B on b.produto_id = a.produto_id;","produtos, vendas"
