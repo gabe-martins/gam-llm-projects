@@ -12,11 +12,11 @@ GROQ_API_KEY = os.getenv('GROQ_API_KEY', '_')
 BASE_DB_PATH = '../databases/'
 
 template = """
-Você é um engenheiro de software trabalhando na documentacao de um codigo. 
-retorne as explicacoes mais breves possiveis sobre os codigos informadados. 
+Você é um administrador de banco de dado trabalhando na monitoria das queries em execucao. 
+retorne as tabelas que cada query esta consumindo.. 
 {text}
 
-Responda apenas com a explicacao. 
+Responda apenas com as tabelas em forma de lista separada por virgula. 
 """ 
 
 df = pd.read_csv(BASE_DB_PATH + 'raw_queries.csv')
