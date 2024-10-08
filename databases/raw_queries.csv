@@ -1,0 +1,5 @@
+ID,Query SQL
+1,SELECT * FROM clientes;
+2,"SELECT MONTH(data_venda), SUM(valor) FROM vendas GROUP BY MONTH(data_venda);"
+3,SELECT COUNT(*) FROM produtos_vendidos WHERE data_venda = '2024-01-01';
+4,"SELECT categoria, AVG(preco) FROM produtos GROUP BY categoria;"
