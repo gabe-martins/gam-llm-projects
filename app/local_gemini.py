@@ -1,11 +1,21 @@
 from dotenv import load_dotenv, find_dotenv
 import os
+import json
 import google.generativeai as genai
 
 load_dotenv(find_dotenv())
 
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '.')
 genai.configure(api_key=GEMINI_API_KEY)
+
+with open('../databases/history-20241014-15200-12345.json', 'r', encoding='utf-8') as arquivo: 
+  chat_history = json.load(arquivo)
+  
+def write_chat_history(answer, response):
+  chat_history.append({'role': 'user', 'parts': list(answer)})
+  chat_history.append({'role': 'model', 'parts': list(response)})
+  
+  return chat_history
 
 # Create the model
 generation_config = {
@@ -22,20 +32,7 @@ model = genai.GenerativeModel(
 )
 
 chat_session = model.start_chat(
-  history=[
-    {
-      "role": "user",
-      "parts": [
-        "Oi",
-      ],
-    },
-    {
-      "role": "model",
-      "parts": [
-        "Olá",
-      ],
-    },
-  ]
+  history=chat_history
 )
 
 while True:
@@ -43,7 +40,9 @@ while True:
   response = chat_session.send_message(answer)
   print(response.text)
   
+  chat_history = write_chat_history(answer, response.text)
+  
   if answer.lower() == 'sair':
     break
-
-chat_session.history
+  
+print(chat_history)

@@ -1,0 +1,14 @@
+[
+  {
+    "role": "user",
+    "parts": [
+      "Oi"
+    ]
+  },
+  {
+    "role": "model",
+    "parts": [
+      "Olá"
+    ]
+  }
+]
