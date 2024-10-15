@@ -2,22 +2,23 @@ from dotenv import load_dotenv, find_dotenv
 import os
 import json
 import google.generativeai as genai
+import mongo_conn as db_con
 
 load_dotenv(find_dotenv())
 
-GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '.')
-genai.configure(api_key=GEMINI_API_KEY)
+chat_history = db_con.get_chat_history()
 
-with open('../databases/history-20241014-15200-12345.json', 'r', encoding='utf-8') as arquivo: 
-  chat_history = json.load(arquivo)
-  
-def write_chat_history(answer, response):
-  chat_history.append({'role': 'user', 'parts': list(answer)})
-  chat_history.append({'role': 'model', 'parts': list(response)})
+def write_chat_history(answer="-", response="."):
+  chat_history.append({'role': 'user', 'parts': [answer]})
+  chat_history.append({'role': 'model', 'parts': [response]})
+  db_con.write_chat_history(chat_history)
   
   return chat_history
 
 # Create the model
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '.')
+genai.configure(api_key=GEMINI_API_KEY)
+
 generation_config = {
   "temperature": 1,
   "top_p": 0.95,
@@ -36,7 +37,8 @@ chat_session = model.start_chat(
 )
 
 while True:
-  answer = input()
+  chat_history = []
+  answer = input("> ").replace("> ", "")
   response = chat_session.send_message(answer)
   print(response.text)
   
@@ -44,5 +46,3 @@ while True:
   
   if answer.lower() == 'sair':
     break
-  
-print(chat_history)
