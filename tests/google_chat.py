@@ -40,4 +40,5 @@ chat_session = model.start_chat(
   ]
 )
 
-print(chat_session.send_message(input()).text)
+qry=input()
+print(chat_session.send_message(qry).text)
