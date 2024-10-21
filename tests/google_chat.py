@@ -20,6 +20,7 @@ generation_config = {
 model = genai.GenerativeModel(
   model_name="gemini-1.5-flash",
   generation_config=generation_config,
+  system_instruction="Você é um administrador de banco de dado trabalhando na monitoria das queries em execucao.\nRetorne as tabelas que cada query esta consumindo.\nResponda apenas com as tabelas em forma de lista separada por virgula."
 )
 
 chat_session = model.start_chat(
@@ -27,13 +28,13 @@ chat_session = model.start_chat(
     {
       "role": "user",
       "parts": [
-        "Você é um administrador de banco de dado trabalhando na monitoria das queries em execucao.\nretorne as tabelas que cada query esta consumindo..\nSELECT * FROM [Tabela_Compras];\n\nResponda apenas com as tabelas em forma de lista separada por virgula.",
+        "SELECT * FROM [Tb_Vendas] A INNER JOIN [Tb_Produtos] B INNER JOIN A.PRODUTO_ID = B.ID;",
       ],
     },
     {
       "role": "model",
       "parts": [
-        "[Tabela_Compras] \n",
+        "Tb_Vendas, Tb_Produtos",
       ],
     },
   ]
