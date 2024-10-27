@@ -12,9 +12,10 @@ load_dotenv(find_dotenv())
 
 GROQ_API_KEY = os.getenv('GROQ_API_KEY', '_')
 
-st.set_page_config(page_title="IN-Chat", layout="centered", page_icon="💬")
-st.title("💬 Chatbot")
-st.caption("powered Groq")
+# Configuracao da pagina
+st.set_page_config(page_title="IN-Chat", layout="wide", page_icon="./components/images/favicon.ico")
+# st.title("💬 Chatbot")
+# st.caption("powered Groq")
 
 # Chat memory
 msgs = StreamlitChatMessageHistory(key="langchain_messages")
@@ -29,7 +30,10 @@ prompt = ChatPromptTemplate.from_messages(
   ]
 )
 
-chain = prompt | ChatGroq(model="llama-3.1-70b-versatile")
+options = ["llama-3.2-90b-text-preview", "llama3-groq-70b-8192-tool-use-preview", "gemma2-9b-it", "llama3-70b-8192"]
+selecao = st.selectbox('Select a model...', options)
+
+chain = prompt | ChatGroq(model=selecao)
 chain_with_history = RunnableWithMessageHistory(
   chain,
   lambda session_id: msgs,
