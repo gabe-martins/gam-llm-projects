@@ -13,7 +13,7 @@ load_dotenv(find_dotenv())
 GROQ_API_KEY = os.getenv('GROQ_API_KEY', '_')
 
 # Configuracao da pagina
-st.set_page_config(page_title="IN-Chat", layout="centered", page_icon="./components/images/favicon.ico")
+st.set_page_config(page_title="IN-Chat", layout="centered", page_icon="./components/images/gam-ico-5.ico")
 # st.title("💬 Chatbot")
 # st.caption("powered Groq")
 
