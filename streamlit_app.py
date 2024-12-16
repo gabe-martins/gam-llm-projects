@@ -30,7 +30,7 @@ prompt = ChatPromptTemplate.from_messages(
   ]
 )
 
-options = ["llama-3.2-90b-text-preview", "llama3-groq-70b-8192-tool-use-preview", "gemma2-9b-it", "llama3-70b-8192"]
+options = ["llama-3.3-70b-versatile", "gemma2-9b-it", "llama3-70b-8192"]
 selecao = st.selectbox('Select a model...', options)
 
 chain = prompt | ChatGroq(model=selecao)
